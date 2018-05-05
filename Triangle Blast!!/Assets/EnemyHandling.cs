@@ -12,7 +12,7 @@ public class EnemyHandling : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        //Debug.Log("Bananas");
     }
 
     // Update is called once per frame
@@ -21,15 +21,15 @@ public class EnemyHandling : MonoBehaviour {
 	}
 
     public void EnemyTurn() {
-        Vector2 playerPos = player.transform.localPosition;
-        if (health == 0) {
-            Destroy(this);
-        }
+        //Vector2 playerPos = player.transform.localPosition;
+        //if (health == 0) {
+        //    Destroy(this);
+        //}
 
-        if (position == playerPos) {
-            player.GameOver();
-        }
+        //if (position == playerPos) {
+        //    player.GameOver();
+        //}
 
-        player.PlayerTurn();
+        //player.PlayerTurn();
     }
 }

@@ -34,21 +34,21 @@ public class RaycastReflection : MonoBehaviour {
         //clamp the number of reflections between 1 and int capacity  
         nReflections = Mathf.Clamp(nReflections, 1, nReflections);
         //cast a new ray forward, from the current attached game object position  
-        ray = new Ray(goTransform.position, goTransform.forward);
+        ray = new Ray(goTransform.position, Input.mousePosition); //laser moves approximately correctly, however moves far away when far left
 
         //represent the ray using a line that can only be viewed at the scene tab  
-        Debug.DrawRay(goTransform.position, goTransform.forward * 100, Color.magenta);
+        Debug.DrawRay(goTransform.position, Input.mousePosition, Color.magenta); //goTransform.forward
 
         //set the number of points to be the same as the number of reflections  
         nPoints = nReflections;
-        //make the lineRenderer have nPoints  
+        //make the lineRenderer have nPoints
         lineRenderer.SetVertexCount(nPoints);
         //Set the first point of the line at the current attached game object position  
         lineRenderer.SetPosition(0, goTransform.position);
 
         for (int i = 0; i <= nReflections; i++) {
             //If the ray hasn't reflected yet  
-            if (i == 0) {
+            if (i == 0) {                                               //IMPORTANT: Line 66 contains the debug log, use this!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //Check if the ray has hit something  
                 if (Physics.Raycast(ray.origin, ray.direction, out hit, 100))//cast the ray 100 units at the specified direction  
                 {
@@ -89,8 +89,7 @@ public class RaycastReflection : MonoBehaviour {
                     //represent the ray using a line that can only be viewed at the scene tab  
                     Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
 
-                    //Print the name of the object the cast ray has hit, at the console  
-                    Debug.Log("Object name: " + hit.transform.name);
+                    //Print the name of the object the cast ray has hit, at the console
 
                     //add a new vertex to the line renderer  
                     lineRenderer.SetVertexCount(++nPoints);
