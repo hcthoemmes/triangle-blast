@@ -82,7 +82,7 @@ public class RaycastReflection : MonoBehaviour {
                     //the refletion direction is the reflection of the ray's direction at the hit normal  
                     inDirection = Vector3.Reflect(inDirection, hit.normal);
                     //cast the reflected ray, using the hit point as the origin and the reflected direction as the direction  
-                    ray = new Ray(hit.point, inDirection);
+                    ray = new Ray(hit.point.normalized, inDirection);
 
                     //Draw the normal - can only be seen at the Scene tab, for debugging purposes  
                     Debug.DrawRay(hit.point, hit.normal * 3, Color.blue);

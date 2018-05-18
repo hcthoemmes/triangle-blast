@@ -44,7 +44,7 @@ public class MouseHandling : MonoBehaviour {
             //DebugRaycast(Vector2.up);
             //DebugRaycast3(Vector3.forward);
             //DebugRaycast3(Vector3.back);
-            DebugRaycast(Input.mousePosition * 100);
+            DebugRaycast(Input.mousePosition);
         }
     }
 }
