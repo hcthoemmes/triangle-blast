@@ -63,7 +63,7 @@ public class RaycastReflection : MonoBehaviour {
                     Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
 
                     //Print the name of the object the cast ray has hit, at the console  
-                    Debug.Log("Object name: " + hit.transform.name);
+                  //  Debug.Log("Object name: " + hit.transform.name);
 
                     //if the number of reflections is set to 1  
                     if (nReflections == 1) {

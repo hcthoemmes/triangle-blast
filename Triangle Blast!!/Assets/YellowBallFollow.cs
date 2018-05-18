@@ -6,13 +6,16 @@ using UnityEngine;
 
 public class YellowBallFollow : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    Camera camera;
+
+    // Use this for initialization
+    void Start () {
+        camera = Camera.main;
+        Debug.Log(camera.pixelRect);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.position = Input.mousePosition.normalized;
+        this.transform.position = Input.mousePosition;
 	}
 }

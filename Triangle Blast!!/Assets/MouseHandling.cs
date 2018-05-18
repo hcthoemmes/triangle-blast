@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MouseHandling : MonoBehaviour {
     
+    public float pixelLengthToScreenLength(float pixelLength, float unitLength, Vector2 screenSize) {
+        return -27;
+    }
+
     void DebugRaycast(Vector3 v) {
         GameObject player = GameObject.Find("Player");
         Ray ray = new Ray(player.transform.position, v);
@@ -45,6 +49,7 @@ public class MouseHandling : MonoBehaviour {
             //DebugRaycast3(Vector3.forward);
             //DebugRaycast3(Vector3.back);
             DebugRaycast(Input.mousePosition);
+            Debug.Log(Input.mousePosition);
         }
     }
 }
