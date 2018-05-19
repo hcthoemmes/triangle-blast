@@ -17,7 +17,7 @@ public class YellowBallFollow : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    public void Update () {
         //this.transform.position = Input.mousePosition;
         float screenX = Input.mousePosition.x;
         float screenY = Input.mousePosition.y;
@@ -31,7 +31,7 @@ public class YellowBallFollow : MonoBehaviour {
 
         this.transform.position = NewBehaviourScript.coordinateShift(worldSizeVector.x, worldSizeVector.y, worldCoordinates);
         //this.transform.position = new Vector2(0, 0);
-        Debug.Log(screenX + "," + screenY);
+        //Debug.Log(screenX + "," + screenY);
     }
 
     private void OnMouseDown() {
