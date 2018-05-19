@@ -12,6 +12,8 @@ public class YellowBallFollow : MonoBehaviour {
     void Start () {
         camera = Camera.main;
         Debug.Log(camera.pixelRect);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -20,14 +22,14 @@ public class YellowBallFollow : MonoBehaviour {
         float screenX = Input.mousePosition.x;
         float screenY = Input.mousePosition.y;
 
+        Vector2 pixelVector = new Vector2(screenX, screenY);
+
         Vector2 screenSizeVector = new Vector2(camera.pixelHeight, camera.pixelWidth);
         Vector2 worldSizeVector = new Vector2(10, 10);
 
-        float worldX = NewBehaviourScript.pixelLengthToScreenLength(screenX, worldSizeVector, screenSizeVector);
-        float worldY = NewBehaviourScript.pixelLengthToScreenLength(screenY, worldSizeVector, screenSizeVector);
-        Vector2 worldCoordinates = new Vector2(worldX, worldY);
+        Vector2 worldCoordinates = NewBehaviourScript.pixelVectorToWorldVector(pixelVector, worldSizeVector, screenSizeVector);
 
-        this.transform.position = NewBehaviourScript.coordinateShift(worldSizeVector.x, worldSizeVector.y, new Vector2(worldX, worldY));
+        this.transform.position = NewBehaviourScript.coordinateShift(worldSizeVector.x, worldSizeVector.y, worldCoordinates);
         //this.transform.position = new Vector2(0, 0);
         Debug.Log(screenX + "," + screenY);
     }

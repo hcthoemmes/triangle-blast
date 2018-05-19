@@ -11,18 +11,18 @@ public class NewPlayModeTest {
 
 	[Test]
 	public void NewPlayModeTestSimplePasses() {
-        Assert.True(NewBehaviourScript.pixelLengthToScreenLength(0,worldSize,screenSize) == 0);
+        Assert.True(NewBehaviourScript.pixelVectorToWorldVector(new Vector2(0,0), worldSize,screenSize) == new Vector2(0,0));
 		// Use the Assert class to test conditions.
 	}
 
     [Test]
     public void PixelsToUnits() {
-        Assert.AreEqual(1, NewBehaviourScript.pixelLengthToScreenLength(10,worldSize,screenSize));
+        Assert.AreEqual(new Vector2(1,1), NewBehaviourScript.pixelVectorToWorldVector(new Vector2(10, 10),worldSize,screenSize));
     }
 
     [Test]
     public void PixelsToUnits2() {
-        Assert.AreEqual(10, NewBehaviourScript.pixelLengthToScreenLength(100, worldSize, screenSize));
+        Assert.AreEqual(new Vector2(10,10), NewBehaviourScript.pixelVectorToWorldVector(new Vector2(100, 100), worldSize, screenSize));
     }
 
     [Test]

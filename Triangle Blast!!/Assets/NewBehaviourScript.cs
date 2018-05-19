@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour{
 
-    public static float pixelLengthToScreenLength(float pixelLength, Vector2 worldSize, Vector2 screenSize) {
-        float ratio = (worldSize.x / screenSize.x) * pixelLength;        
-        return ratio;
+    public static Vector2 pixelVectorToWorldVector(Vector2 pixelVector, Vector2 worldSize, Vector2 screenSize) { //pixelvector being the x and y size of the screen in pixels, worldvector being that in some sort of unit
+        float worldX = (worldSize.x / screenSize.x) * pixelVector.x;
+        float worldY = (worldSize.y / screenSize.y) * pixelVector.y;
+        Vector2 worldVector = new Vector2(worldX, worldY);
+        return worldVector;
     }
 
     public static Vector2 coordinateShift(float worldWidth, float worldHeight, Vector2 originalPoint) {
