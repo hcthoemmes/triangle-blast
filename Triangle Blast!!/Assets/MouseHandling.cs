@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseHandling : MonoBehaviour {
-    
-    public float pixelLengthToScreenLength(float pixelLength, float unitLength, Vector2 screenSize) {
-        return -27;
-    }
 
     void DebugRaycast(Vector3 v) {
         GameObject player = GameObject.Find("Player");
