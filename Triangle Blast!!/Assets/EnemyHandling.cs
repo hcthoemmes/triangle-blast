@@ -20,7 +20,7 @@ public class EnemyHandling : MonoBehaviour {
 	    
 	}
 
-    public void EnemyTurn() {
+    public static void EnemyTurn() {
         //Vector2 playerPos = player.transform.localPosition;
         //if (health == 0) {
         //    Destroy(this);

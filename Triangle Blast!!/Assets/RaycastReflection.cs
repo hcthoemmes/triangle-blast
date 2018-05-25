@@ -48,7 +48,7 @@ public class RaycastReflection : MonoBehaviour {
 
         for (int i = 0; i <= nReflections; i++) {
             //If the ray hasn't reflected yet  
-            if (i == 0) {                                               //IMPORTANT: Line 66 contains the debug log, use this!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (i == 0) {
                 //Check if the ray has hit something  
                 if (Physics.Raycast(ray.origin, ray.direction, out hit, 100))//cast the ray 100 units at the specified direction  
                 {
@@ -60,10 +60,7 @@ public class RaycastReflection : MonoBehaviour {
                     //Draw the normal - can only be seen at the Scene tab, for debugging purposes  
                     Debug.DrawRay(hit.point, hit.normal * 3, Color.blue);
                     //represent the ray using a line that can only be viewed at the scene tab  
-                    Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
-
-                    //Print the name of the object the cast ray has hit, at the console  
-                  //  Debug.Log("Object name: " + hit.transform.name);
+                    Debug.DrawRay(hit.point, inDirection * 100, Color.cyan);
 
                     //if the number of reflections is set to 1  
                     if (nReflections == 1) {
@@ -88,9 +85,7 @@ public class RaycastReflection : MonoBehaviour {
                     Debug.DrawRay(hit.point, hit.normal * 3, Color.blue);
                     //represent the ray using a line that can only be viewed at the scene tab  
                     Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
-
-                    //Print the name of the object the cast ray has hit, at the console
-
+                    
                     //add a new vertex to the line renderer  
                     lineRenderer.SetVertexCount(++nPoints);
                     //set the position of the next vertex at the line renderer to be the same as the hit point  

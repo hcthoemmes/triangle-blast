@@ -90,7 +90,6 @@ public class PlayerHandling : MonoBehaviour {
                     System.Random rand2 = new System.Random();
                 }
             }
-            enemy.EnemyTurn();
         }
     }
 
