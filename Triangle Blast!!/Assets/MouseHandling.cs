@@ -44,7 +44,7 @@ public class MouseHandling : MonoBehaviour {
 
     void onClickRaycast(Vector2 v) {
         //BouncyString clone = Instantiate(bouncyString);
-        Vector3[] lineRendererPositions = new Vector3[2];
+        Vector3[] lineRendererPositions = new Vector3[5];
         lineRenderer = GetComponentInParent<LineRenderer>();
         GameObject player = GameObject.Find("Player");
         Vector3 playerCoord = new Vector3(v.x, (v.y + 5), player.transform.position.z);
@@ -55,8 +55,11 @@ public class MouseHandling : MonoBehaviour {
             //Debug.DrawRay(ray.origin, playerCoord, Color.yellow, 5, false);
             lineRendererPositions[0] = player.transform.position;
             lineRendererPositions[1] = hit.point;
+            lineRendererPositions[2] = new Vector3(0, 0, 0);
+            lineRenderer.positionCount = lineRendererPositions.Length;
             lineRenderer.SetPositions(lineRendererPositions);
             Debug.Log(lineRendererPositions[1] + "LineRenderer hit zone");
+            
         } else {
             Debug.Log("No hit at " + playerCoord);
         }
