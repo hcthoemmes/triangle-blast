@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class MouseHandling : MonoBehaviour {
 
-    // Use this for initialization
-    void Start() {
-        
-    }
-
     public LineRenderer lineRenderer;
     RaycastHit hit;
     public Transform bouncyString; /*doesn't necessarily need to be a transform,
                                     any gameObject works*/
+    // Use this for initialization
+    void Start() {
+        lineRenderer.loop = false;
+    }
+
     // Update is called once per frame
     void Update() {
         GameObject player = GameObject.Find("Player");
@@ -43,6 +43,9 @@ public class MouseHandling : MonoBehaviour {
     }
 
     void onClickRaycast(Vector3 rayDirection) {
+
+        int lineCount = 2;
+
         //BouncyString clone = Instantiate(bouncyString);
         lineRenderer = GetComponentInParent<LineRenderer>();
         GameObject player = GameObject.Find("Player");
@@ -52,18 +55,21 @@ public class MouseHandling : MonoBehaviour {
         if (Physics.Raycast(ray.origin, playerCoord, out hit)) { //TODO: if hit isn't bottomwall, add 1 to x, lineRendererPos[x] 
             //Debug.Log("Hit at " + playerCoord + " " + hit.collider);
             //Debug.DrawRay(ray.origin, playerCoord, Color.yellow, 5, false);
-            Vector3[] lineRendererPositions = new Vector3[7];
+            Vector3[] lineRendererPositions = new Vector3[lineCount + 1];
             lineRendererPositions[0] = player.transform.position;
             lineRendererPositions[1] = hit.point;
-            for (int x = 2; x < 7; x++) {
+            RaycastHit nextHit = new RaycastHit();
+            for (int x = 2; x <= lineCount; x++) {
                 rayDirection = Vector3.Reflect(rayDirection, hit.normal);
-                if (Physics.Raycast(hit.point, rayDirection, out hit)) {
-                    lineRendererPositions[x] = hit.point;
+                Debug.Log(hit.normal + ": Hit.normal");
+                if (Physics.Raycast(hit.point, rayDirection, out nextHit)) {
+                    lineRendererPositions[x] = nextHit.point;
+                    hit = nextHit;
                 }
-                lineRenderer.positionCount = lineRendererPositions.Length;
-                lineRenderer.SetPositions(lineRendererPositions);
             }
-
+            lineRenderer.positionCount = lineCount + 1;
+            lineRenderer.SetPositions(lineRendererPositions);
+            
             //add bottom-wallness as a thing post reflection
             //Debug.Log(lineRendererPositions[1] + "LineRenderer hit zone");
 
