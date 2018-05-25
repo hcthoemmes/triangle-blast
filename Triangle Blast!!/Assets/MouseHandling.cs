@@ -10,7 +10,8 @@ public class MouseHandling : MonoBehaviour {
     }
 
     RaycastHit hit;
-
+    public Transform bouncyString; /*doesn't necessarily need to be a transform,
+                                    any gameObject works*/
     // Update is called once per frame
     void Update() {
         GameObject player = GameObject.Find("Player");
@@ -42,17 +43,19 @@ public class MouseHandling : MonoBehaviour {
     }
 
     void onClickRaycast(Vector2 v) {
+        //BouncyString clone = Instantiate(bouncyString);
         GameObject player = GameObject.Find("Player");
         Vector3 playerZone = new Vector3(v.x, (v.y + 5), player.transform.position.z);
+        Instantiate(bouncyString, playerZone, Quaternion.identity);
         Ray ray = new Ray(player.transform.position, playerZone);
         if (Physics.Raycast(ray.origin, playerZone, out hit)) {
-            if (hit.collider.tag != "BottomWall") {
-                Debug.Log("Hit at " + playerZone + " " + hit.collider);
-                Debug.DrawRay(ray.origin, playerZone, Color.yellow, 5, false);
-            }
+            Debug.Log("Hit at " + playerZone + " " + hit.collider);
+            Debug.DrawRay(ray.origin, playerZone, Color.yellow, 5, false);
+
         } else {
             Debug.Log("No hit at " + playerZone);
         }
     }
-
 }
+
+//for some float is less than ray.magnitude, instantiate new lazors
