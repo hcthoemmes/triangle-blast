@@ -44,7 +44,7 @@ public class MouseHandling : MonoBehaviour {
 
     void onClickRaycast(Vector3 yellowBallPosition) {
 
-        int lineCount = 2;
+        int lineCount = 7;
 
         //BouncyString clone = Instantiate(bouncyString);
         lineRenderer = GetComponentInParent<LineRenderer>();
