@@ -42,24 +42,31 @@ public class MouseHandling : MonoBehaviour {
 
     }
 
-    void onClickRaycast(Vector2 v) {
+    void onClickRaycast(Vector3 rayDirection) {
         //BouncyString clone = Instantiate(bouncyString);
-        Vector3[] lineRendererPositions = new Vector3[5];
         lineRenderer = GetComponentInParent<LineRenderer>();
         GameObject player = GameObject.Find("Player");
-        Vector3 playerCoord = new Vector3(v.x, (v.y + 5), player.transform.position.z);
+        Vector3 playerCoord = new Vector3(rayDirection.x, (rayDirection.y + 5), player.transform.position.z);
         //Instantiate(bouncyString, playerCoord, Quaternion.identity);
         Ray ray = new Ray(player.transform.position, playerCoord);
         if (Physics.Raycast(ray.origin, playerCoord, out hit)) { //TODO: if hit isn't bottomwall, add 1 to x, lineRendererPos[x] 
             //Debug.Log("Hit at " + playerCoord + " " + hit.collider);
             //Debug.DrawRay(ray.origin, playerCoord, Color.yellow, 5, false);
+            Vector3[] lineRendererPositions = new Vector3[7];
             lineRendererPositions[0] = player.transform.position;
             lineRendererPositions[1] = hit.point;
-            lineRendererPositions[2] = new Vector3(0, 0, 0);
-            lineRenderer.positionCount = lineRendererPositions.Length;
-            lineRenderer.SetPositions(lineRendererPositions);
-            Debug.Log(lineRendererPositions[1] + "LineRenderer hit zone");
-            
+            for (int x = 2; x < 7; x++) {
+                rayDirection = Vector3.Reflect(rayDirection, hit.normal);
+                if (Physics.Raycast(hit.point, rayDirection, out hit)) {
+                    lineRendererPositions[x] = hit.point;
+                }
+                lineRenderer.positionCount = lineRendererPositions.Length;
+                lineRenderer.SetPositions(lineRendererPositions);
+            }
+
+            //add bottom-wallness as a thing post reflection
+            //Debug.Log(lineRendererPositions[1] + "LineRenderer hit zone");
+
         } else {
             Debug.Log("No hit at " + playerCoord);
         }
