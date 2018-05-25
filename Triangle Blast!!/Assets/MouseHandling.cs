@@ -6,9 +6,10 @@ public class MouseHandling : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+        
     }
 
+    public LineRenderer lineRenderer;
     RaycastHit hit;
     public Transform bouncyString; /*doesn't necessarily need to be a transform,
                                     any gameObject works*/
@@ -36,24 +37,28 @@ public class MouseHandling : MonoBehaviour {
             onClickRaycast(rayDirection);
             /*add a while loop for the duration of reflection that don't hit the
               bottomWall, and then stop it*/
-            Debug.Log(Input.mousePosition);
-            Debug.Log(pixelVector + "," + worldCoordinates);
+            Debug.Log(pixelVector + ": pixelvector" + ", " + worldCoordinates + ": worldCoordinates");
         }
 
     }
 
     void onClickRaycast(Vector2 v) {
         //BouncyString clone = Instantiate(bouncyString);
+        Vector3[] lineRendererPositions = new Vector3[2];
+        lineRenderer = GetComponentInParent<LineRenderer>();
         GameObject player = GameObject.Find("Player");
-        Vector3 playerZone = new Vector3(v.x, (v.y + 5), player.transform.position.z);
-        Instantiate(bouncyString, playerZone, Quaternion.identity);
-        Ray ray = new Ray(player.transform.position, playerZone);
-        if (Physics.Raycast(ray.origin, playerZone, out hit)) {
-            Debug.Log("Hit at " + playerZone + " " + hit.collider);
-            Debug.DrawRay(ray.origin, playerZone, Color.yellow, 5, false);
-
+        Vector3 playerCoord = new Vector3(v.x, (v.y + 5), player.transform.position.z);
+        //Instantiate(bouncyString, playerCoord, Quaternion.identity);
+        Ray ray = new Ray(player.transform.position, playerCoord);
+        if (Physics.Raycast(ray.origin, playerCoord, out hit)) { //TODO: if hit isn't bottomwall, add 1 to x, lineRendererPos[x] 
+            //Debug.Log("Hit at " + playerCoord + " " + hit.collider);
+            //Debug.DrawRay(ray.origin, playerCoord, Color.yellow, 5, false);
+            lineRendererPositions[0] = player.transform.position;
+            lineRendererPositions[1] = hit.point;
+            lineRenderer.SetPositions(lineRendererPositions);
+            Debug.Log(lineRendererPositions[1] + "LineRenderer hit zone");
         } else {
-            Debug.Log("No hit at " + playerZone);
+            Debug.Log("No hit at " + playerCoord);
         }
     }
 }
