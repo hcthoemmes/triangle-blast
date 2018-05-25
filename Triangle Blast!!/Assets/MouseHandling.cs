@@ -23,18 +23,18 @@ public class MouseHandling : MonoBehaviour {
             float screenX = Input.mousePosition.x;
             float screenY = Input.mousePosition.y;
 
-            Vector2 worldSizeVector = new Vector2(10, 10);
-            Vector2 pixelVector = new Vector2(screenX, screenY);
-            Vector2 screenSizeVector = new Vector2(camera.pixelHeight, camera.pixelWidth);
+            Vector3 worldSizeVector = new Vector3(10, 10);
+            Vector3 pixelVector = new Vector3(screenX, screenY);
+            Vector3 screenSizeVector = new Vector3(camera.pixelHeight, camera.pixelWidth);
 
-            Vector2 worldCoordinates = NewBehaviourScript.pixelVectorToWorldVector(
+            Vector3 worldCoordinates = NewBehaviourScript.pixelVectorToWorldVector(
                 pixelVector, worldSizeVector, screenSizeVector);
 
-            Vector2 rayDirection = NewBehaviourScript.coordinateShift(
+            Vector3 yellowBallPosition = NewBehaviourScript.coordinateShift(
                 worldSizeVector.x, worldSizeVector.y, worldCoordinates);
-            //Vector2 staticRayDirection = rayDirection;
+            //Vector3 staticRayDirection = rayDirection;
 
-            onClickRaycast(rayDirection);
+            onClickRaycast(yellowBallPosition);
             /*add a while loop for the duration of reflection that don't hit the
               bottomWall, and then stop it*/
             Debug.Log(pixelVector + ": pixelvector" + ", " + worldCoordinates + ": worldCoordinates");
@@ -42,14 +42,15 @@ public class MouseHandling : MonoBehaviour {
 
     }
 
-    void onClickRaycast(Vector3 rayDirection) {
+    void onClickRaycast(Vector3 yellowBallPosition) {
 
         int lineCount = 2;
 
         //BouncyString clone = Instantiate(bouncyString);
         lineRenderer = GetComponentInParent<LineRenderer>();
         GameObject player = GameObject.Find("Player");
-        Vector3 playerCoord = new Vector3(rayDirection.x, (rayDirection.y + 5), player.transform.position.z);
+        Vector3 rayDirection = yellowBallPosition - player.transform.position;
+        Vector3 playerCoord = new Vector3(rayDirection.x, rayDirection.y, player.transform.position.z);
         //Instantiate(bouncyString, playerCoord, Quaternion.identity);
         Ray ray = new Ray(player.transform.position, playerCoord);
         if (Physics.Raycast(ray.origin, playerCoord, out hit)) { //TODO: if hit isn't bottomwall, add 1 to x, lineRendererPos[x] 
@@ -63,8 +64,11 @@ public class MouseHandling : MonoBehaviour {
                 rayDirection = Vector3.Reflect(rayDirection, hit.normal);
                 Debug.Log(hit.normal + ": Hit.normal");
                 if (Physics.Raycast(hit.point, rayDirection, out nextHit)) {
-                    lineRendererPositions[x] = nextHit.point;
+                    lineRendererPositions[x] = nextHit.point; //remove add 5 later
+                    
                     hit = nextHit;
+                } else {
+                    Debug.LogError("Danger Will Robinson");
                 }
             }
             lineRenderer.positionCount = lineCount + 1;

@@ -37,7 +37,7 @@ public class RaycastReflection : MonoBehaviour {
         ray = new Ray(goTransform.position, Input.mousePosition); //laser moves approximately correctly, however moves far away when far left
 
         //represent the ray using a line that can only be viewed at the scene tab  
-        Debug.DrawRay(goTransform.position, Input.mousePosition, Color.magenta); //goTransform.forward
+        //Debug.DrawRay(goTransform.position, Input.mousePosition, Color.magenta); //goTransform.forward
 
         //set the number of points to be the same as the number of reflections  
         nPoints = nReflections;
@@ -82,9 +82,9 @@ public class RaycastReflection : MonoBehaviour {
                     ray = new Ray(hit.point.normalized, inDirection);
 
                     //Draw the normal - can only be seen at the Scene tab, for debugging purposes  
-                    Debug.DrawRay(hit.point, hit.normal * 3, Color.blue);
+                    //Debug.DrawRay(hit.point, hit.normal * 3, Color.blue);
                     //represent the ray using a line that can only be viewed at the scene tab  
-                    Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
+                    //Debug.DrawRay(hit.point, inDirection * 100, Color.magenta);
                     
                     //add a new vertex to the line renderer  
                     lineRenderer.SetVertexCount(++nPoints);
